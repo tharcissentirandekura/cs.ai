@@ -9,12 +9,12 @@ interface ChatContainerProps {
 }
 
 export function ChatContainer({ model }: ChatContainerProps) {
-  const { messages, loading, sendMessage } = useChat(model);
+  const { messages, loading, sendMessage, stopGeneration } = useChat(model);
 
   return (
     <div className="d-flex flex-column h-100">
       <ChatMessages messages={messages} isLoading={loading} />
-      <ChatInput onSend={sendMessage} disabled={loading} />
+      <ChatInput onSend={sendMessage} onStop={stopGeneration} disabled={loading} />
     </div>
   );
 }

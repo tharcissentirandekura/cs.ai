@@ -14,7 +14,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://ollama.cs.oberlin.edu:11434',
-        changeOrigin: true
+        changeOrigin: false
       }
     }
   }

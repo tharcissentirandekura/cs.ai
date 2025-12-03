@@ -16,11 +16,12 @@ export class ChatClient{
         this.config = config;
     }
 
-    async *streamChat(request:ChatRequest):AsyncGenerator<StreamChunk, void, unknown>{
+    async *streamChat(request:ChatRequest, signal?: AbortSignal):AsyncGenerator<StreamChunk, void, unknown>{
         const response = await fetch(`${this.config.baseUrl}/api/chat`,{
             method: 'POST',
             headers:{'Content-Type':'application/json'},
             body: JSON.stringify({...request,stream:true}),
+            signal,
         });
 
         if (!response.ok){
@@ -37,6 +38,10 @@ export class ChatClient{
 
         try {
             while (true){
+                if (signal?.aborted) {
+                    reader.cancel();
+                    break;
+                }
                 const {done,value} = await reader.read();
                 if(done) break; //Stop if there is not text to read
 

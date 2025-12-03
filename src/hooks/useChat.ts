@@ -1,5 +1,5 @@
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { ChatClient } from "@cs.ai/sdk";
 import type { Message } from "@cs.ai/sdk";
 import type { Model } from "@cs.ai/sdk";
@@ -7,6 +7,7 @@ import type { Model } from "@cs.ai/sdk";
 export function useChat(model: Model | string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
   
   const client = new ChatClient({ baseUrl: '' });
 
@@ -23,11 +24,20 @@ export function useChat(model: Model | string) {
   const sendMessage = useCallback(async (content: string) => {
     if (!content.trim() || loading) return;
 
+    // Cancel any ongoing request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
     const userMessage: Message = { role: 'user', content };
     setMessages(prev => [...prev, userMessage]);
     setLoading(true);
 
     setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+
+    // Create new AbortController for this request
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
 
     try {
       let accumulatedContent = '';
@@ -37,7 +47,11 @@ export function useChat(model: Model | string) {
         model: actualModelName, // Use the actual Ollama model name
         messages: [...messages, userMessage],
         stream: true,
-      })) {
+      }, abortController.signal)) {
+        // Check if request was aborted
+        if (abortController.signal.aborted) {
+          break;
+        }
         accumulatedContent += chunk.content;
         setMessages(prev => {
           const newMessages = [...prev];
@@ -49,6 +63,10 @@ export function useChat(model: Model | string) {
         });
       }
     } catch (error) {
+      // Don't show error if it was aborted
+      if (abortController.signal.aborted) {
+        return;
+      }
       console.error('Chat error:', error);
       setMessages(prev => {
         const newMessages = [...prev];
@@ -63,8 +81,17 @@ export function useChat(model: Model | string) {
       });
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
     }
   }, [messages, loading, model]);
 
-  return { messages, loading, sendMessage };
+  const stopGeneration = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      setLoading(false);
+      abortControllerRef.current = null;
+    }
+  }, []);
+
+  return { messages, loading, sendMessage, stopGeneration };
 }

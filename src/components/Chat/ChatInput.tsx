@@ -2,10 +2,11 @@ import { useState } from 'react';
 
 interface ChatInputProps {
   onSend: (message: string) => void;
+  onStop: () => void;
   disabled: boolean;
 }
 
-export function ChatInput({ onSend, disabled }: ChatInputProps) {
+export function ChatInput({ onSend, onStop, disabled }: ChatInputProps) {
   const [input, setInput] = useState('');
 
   const handleSend = () => {
@@ -29,20 +30,22 @@ export function ChatInput({ onSend, disabled }: ChatInputProps) {
             style={{ borderRadius: '24px' }}
           />
         </div>
-        <button
-          className="btn btn-primary rounded-pill"
-          onClick={handleSend}
-          disabled={disabled || !input.trim()}
-        >
-          {disabled ? (
-            <>
-              <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-              Sending...
-            </>
-          ) : (
-            'Run'
-          )}
-        </button>
+        {disabled ? (
+          <button
+            className="btn btn-danger rounded-pill"
+            onClick={onStop}
+          >
+            Stop
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary rounded-pill"
+            onClick={handleSend}
+            disabled={!input.trim()}
+          >
+            Run
+          </button>
+        )}
       </div>
     </div>
   );

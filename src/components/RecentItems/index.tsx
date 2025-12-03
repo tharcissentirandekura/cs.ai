@@ -7,11 +7,7 @@ interface RecentItem {
   }
   
   const recentItems: RecentItem[] = [
-    { id: '1', title: 'How Can I Help You?', timestamp: 'Just now', active: true },
-    { id: '2', title: 'Bertrand Equilibrium Prices Cal...', timestamp: '2h ago' },
-    { id: '3', title: 'Proposal Templates For Partici...', timestamp: '5h ago' },
-    { id: '4', title: 'Major Updates: Search & Usabi...', timestamp: '1d ago' },
-    { id: '5', title: 'Team Collaboration And Contri...', timestamp: '2d ago' },
+    { id: '1', title: 'Not yet implemented', timestamp: 'Just now', active: true },
   ];
   
   export function RecentItems() {

@@ -7,7 +7,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-    { id: 'home', label: 'CS Model', icon: '' },
+    { id: 'home', label: 'CS Local hosted Models', icon: '' },
 ];
 
 export const Navigation = () => {
@@ -19,7 +19,7 @@ export const Navigation = () => {
                 <div
                     key={item.id}
                     onClick={() => setActiveItem(item.id)}
-                    className={`d-flex align-items-center gap-2 p-3 mb-2 rounded cursor-pointer ${activeItem === item.id ? 'bg-primary text-white' : 'bg-light'
+                    className={`d-flex align-items-center gap-2 p-3 mb-2 rounded cursor-pointer ${activeItem === item.id ? 'text-danger fs-5' : 'bg-light'
                         }`}
                     style={{ cursor: 'pointer' }}
                 >
