@@ -3,10 +3,10 @@ name: cs.ai Continuous Integration
 on: 
   push:
     branches: [main]
-  pill_requests:
+  pull_request:
     branches: [main]
 
-jobs:
+jobs: 
   build-and-test:
     runs-on: ubuntu-latest
 
@@ -18,4 +18,4 @@ jobs:
           node-version: '18'
       - run: npm ci
       - run: npm run build --if-present
-      - npm test --if-present
+      - run: npm test --if-present
