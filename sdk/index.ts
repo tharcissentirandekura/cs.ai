@@ -2,8 +2,8 @@
  * Our entry point for sdk
  */
 // core sdk logic 
-export { ChatClient } from './core/client';
-export { ModelManager } from './core/models';
+export * from './core/client';
+export * from './core/models';
 
 // sdk types
 export type * from './types/chat';
