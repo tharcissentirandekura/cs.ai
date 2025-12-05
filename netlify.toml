@@ -1,0 +1,14 @@
+#This file is to configure the netlify production
+
+[build]
+    command = "npm run build"
+    publish = "dist"
+
+[dev]
+    command = "npm run dev"
+    port = 5173
+
+[[redirect]]
+    from = "/"
+    to = "/index.html"
+    status = 200
