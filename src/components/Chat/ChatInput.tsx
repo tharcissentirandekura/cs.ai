@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-interface ChatInputProps {
+interface ChatInputOptions {
   onSend: (message: string) => void;
   onStop: () => void;
   disabled: boolean;
 }
 
-export function ChatInput({ onSend, onStop, disabled }: ChatInputProps) {
+export function ChatInput({ onSend, onStop, disabled }: ChatInputOptions) {
   const [input, setInput] = useState('');
 
   const handleSend = () => {
