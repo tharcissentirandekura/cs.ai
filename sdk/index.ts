@@ -2,7 +2,7 @@
  * Our entry point for sdk
  */
 // core sdk logic 
-export * from './core/client';
+export {ChatClient} from './core/client';
 export * from './core/models';
 
 // sdk types
