@@ -1,0 +1,21 @@
+name: cs.ai Continuous Integration
+
+on: 
+  push:
+    branches: [main]
+  pill_requests:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm ci
+      - run: npm run build --if-present
+      - npm test --if-present
