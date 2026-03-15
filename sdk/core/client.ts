@@ -3,6 +3,7 @@
  */
 
 import type {  ChatRequest, ChatResponse, StreamChunk } from '../types'
+
 /**
  * Any client instance, should have two args
  * 1. baseURL: Which api server url
@@ -12,6 +13,7 @@ export interface ClientConfig{
     baseUrl:string;
     timeout?:number;
 }
+
 /**
  * This class is responsible for making a model chat client request,response
  * We don't have to use a class but it is more easier to things of the design with OOP 
@@ -46,6 +48,7 @@ export class ChatClient{
          * The api baseUrl is define in vite.config.ts, in the proxy server config
          * 
          */
+        // const res = await fetch(`/api/search?q=${encodeURIComponent("what is chatgpt")}`);
         const response = await fetch(`${this.config.baseUrl}/api/chat`,{
             method: 'POST', 
             headers:{'Content-Type':'application/json'},
@@ -66,6 +69,8 @@ export class ChatClient{
          * @link on wikipedia: https://en.wikipedia.org/wiki/Stream_(abstract_data_type)
          * Stream api: @link https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
          */
+        // const searchData = await searchInternet(request.messages[0].content);
+        // console.log("Internet search:",searchData)
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';

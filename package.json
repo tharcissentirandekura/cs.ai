@@ -15,7 +15,13 @@
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
+    "axios": "^1.13.2",
     "bootstrap": "^5.3.3",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.3.2",
+    "ollama": "^0.6.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^10.1.0",
@@ -23,7 +29,9 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.10.8",
+    "@types/node-fetch": "^2.6.13",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^5.1.1",

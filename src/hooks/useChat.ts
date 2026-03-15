@@ -3,6 +3,8 @@ import { useState, useCallback, useRef } from "react";
 import { ChatClient } from "@cs.ai/sdk";
 import type { Message } from "@cs.ai/sdk";
 import type { Model } from "@cs.ai/sdk";
+// import axios from "axios";
+// import 'dotenv/config';
 
 export function useChat(model: Model | string) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -10,9 +12,11 @@ export function useChat(model: Model | string) {
   const abortControllerRef = useRef<AbortController | null>(null);
   
   const client = new ChatClient({ baseUrl: '' });
-
+  // const apiKey = import.meta.env.VITE_OLLAMA_API_KEY;
+  // console.log(apiKey)
   // Get the actual model name for the API
   const getModelName = (model: Model | string): string => {
+    console.log('Model name :',model)
     if (typeof model === 'string') {
       // Fallback: if string is passed, use it directly (for backward compatibility)
       return model;

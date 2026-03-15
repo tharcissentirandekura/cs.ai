@@ -4,6 +4,7 @@ import { useModels } from '../hooks/useModels';
 
 export function ContentLayout() {
   const { selectedModelData } = useModels();
+  console.log(selectedModelData)
 
   return (
     <div className="p-4 d-flex flex-column bg-white flex-grow-1 vh-100 overflow-hidden">

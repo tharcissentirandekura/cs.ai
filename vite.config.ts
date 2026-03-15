@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://ollama.cs.oberlin.edu:11434',
+        target: 'http://localhost:11434',
         changeOrigin: false
       }
     }
